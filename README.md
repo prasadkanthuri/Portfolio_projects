@@ -1,5 +1,4 @@
-# Portfolio_projects
-A curated collection of projects focused on Machine Learning, NLP, and Data Analytics — built with Python for real-world impact.
+
 # 🎓 M.Tech Projects Portfolio
 
 > A curated collection of M.Tech projects focused on **Machine Learning**, **NLP**, and **Data Analytics** — built with **Python** for real-world impact.
@@ -16,7 +15,7 @@ These projects are built using **real data**, apply relevant domain knowledge, a
 
 ## 💼 Projects Included
 
-### 1. 🧠 ReviewPulse – DL-Based Review Summarizer
+### 1. 🧠 ReviewPulse – A DL-Powered Review Tracker for Smarter E-Commerce Choices
 - **Problem**: Time-consuming manual analysis of e-commerce product reviews.
 - **Solution**: A Transformer-based system that scrapes and summarizes 200 recent Flipkart reviews using BART.
 - **Tech Stack**: Selenium, Transformers, Gradio, BeautifulSoup, Pandas
