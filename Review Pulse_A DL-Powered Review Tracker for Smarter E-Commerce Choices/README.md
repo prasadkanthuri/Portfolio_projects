@@ -52,15 +52,12 @@ We use **Facebook’s BART Large CNN model** from Hugging Face Transformers to:
 
 ### 🖼️ Step 6: Visual Output
 - A clean web UI built using **Gradio** displays:
-
-  ![Screenshot 2025-07-01 232304](https://github.com/user-attachments/assets/e91f2264-eaa1-4be8-a4b0-0c2adb6b4729)
-
   - Product image  
   - Summarized reviews in three tabs  
   - Key stats: number of reviews, sentiment breakdown, average rating  
   - A powerful **final decision-making summary** (verdict)
  
-  - ![Screenshot 2025-07-01 234401](https://github.com/user-attachments/assets/1b8a36d1-06ab-4423-bfab-c805eab55923)
+  
 
 
 ---
@@ -134,6 +131,9 @@ Paste the link, click “Analyze Reviews” — that's it.
 - Final summarized verdict
 
 _Add screenshots here if available_
+![Screenshot 2025-07-01 232304](https://github.com/user-attachments/assets/d3e516fd-9b7e-4982-8942-e3092cc32049)
+
+![Screenshot 2025-07-01 234401](https://github.com/user-attachments/assets/6286dd4e-31bf-4c71-94d2-fabbae9a7e5a)
 
 ---
 
