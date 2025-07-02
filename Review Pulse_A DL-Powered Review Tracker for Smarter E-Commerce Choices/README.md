@@ -1,155 +1,127 @@
-# 🛒 ReviewPulse – A DL-Powered Review Tracker for Smarter E-Commerce Choices
+# 🛍️ ReviewPulse – A DL-Powered Flipkart Review Analyzer
 
-> **“Buying smart should take minutes, not hours.”**
+> **“Don’t read hundreds of reviews — understand them in minutes with DL transformers.”**
 
 ---
+![Screenshot 2025-07-02 104957](https://github.com/user-attachments/assets/9e9ab09c-5d03-4f4c-a35b-767d06b48253)
+
 
 ## 💡 Idea & Motivation
 
-Online shopping has become a routine part of our lives. But how often do we spend **10–20 minutes** just reading through reviews to decide whether to buy a product?
+When shopping online, it's common to waste **10–20 minutes** reading user reviews to decide whether a product is worth it.
 
-- We manually scroll through **dozens of reviews** to get a sense of the product.
-- Even after reading ~50 reviews in 10 minutes, we might miss crucial feedback.
-- What if there's a way to **automatically read 200 reviews**, categorize them, summarize their key points, and provide a **quick verdict**?
+- You manually skim through 50–100 reviews.
+- You may miss key complaints or praises.
+- It’s time-consuming and not scalable for smart shopping.
 
-That's where **ReviewPulse** steps in. With the **power of Transformers** and a bit of automation, this tool **summarizes customer opinions** so that **you make smarter decisions faster**.
+**ReviewPulse** aims to solve this using **automation + deep learning**.
 
 ---
 
-## 🚀 How It Works
+## 🚀 What It Does
 
-### 🔗 Step 1: Input
-You just paste the **Flipkart product URL**.
+- Scrapes up to **200 latest reviews** from any Flipkart product.
+- Uses **BART Transformer model** to summarize reviews by sentiment:
+  - 🟢 Positive  
+  - 🔴 Negative  
+  - 🟡 Neutral
+- Calculates **cosine similarity** between:
+  - Each sentiment’s original reviews and their summary.
+  - Helps evaluate **summary quality**.
+- Gives a **final summary verdict** using all sentiments.
 
-### ⚙️ Step 2: Automation Begins
-Under the hood:
-- The tool extracts the `product ID` and builds a direct link to the **review page**.
-- Using **Selenium**, it launches a headless browser to:
-  - Navigate to the reviews section.
-  - Sort them by **Most Recent**.
-  - Load multiple pages to collect up to **200 reviews**.
+---
 
-### 🧠 Step 3: Review Extraction & Cleaning
-For every review:
-- We extract:
-  - Title  
-  - Full review content  
-  - Rating (1–5)
-- **All emojis are removed** to prevent noise in NLP tasks.
+## ⚙️ How It Works
 
-### 🧪 Step 4: Classification
-Based on the star ratings:
+### 🔗 Step 1: URL Input
+You paste any valid **Flipkart product URL**.
+
+### 🤖 Step 2: Review Scraping
+- Extracts `product ID` and forms review page link.
+- Uses **Selenium** to:
+  - Launch a headless browser.
+  - Sort by **Most Recent**.
+  - Collect up to **200 reviews** across multiple pages.
+
+### 🧼 Step 3: Data Cleaning
+- Extracts:
+  - Review Title  
+  - Full Review Content  
+  - Rating (1–5 stars)
+- Removes **emojis** using the `emoji` Python package.
+
+### 🏷️ Step 4: Sentiment Classification
 - **4–5 stars** → Positive  
 - **1–2 stars** → Negative  
-- **3 stars** → Neutral  
+- **3 stars** → Neutral
 
-Each group is separated for targeted summarization.
+### 🧠 Step 5: Summarization using Transformers
+- Uses **Facebook’s BART Large CNN model**:
+  - Summarizes each group (positive/negative/neutral) separately.
+  - Then combines all three summaries to generate the **final verdict**.
 
-### 📝 Step 5: Summarization using Transformers
-We use **Facebook’s BART Large CNN model** from Hugging Face Transformers to:
-- Summarize each group (Positive / Negative / Neutral) separately.
-- Then feed those summaries into the model again to generate a **final verdict** — a crisp, all-in-one review of the latest feedback.
+### 📐 Step 6: Summary Evaluation
+- Uses **TF-IDF + Cosine Similarity** to compare:
+  - Original reviews (per sentiment)  
+  - ⬄  
+  - Summarized output
+- Helps quantify how much the summary reflects the full data.
 
-### 🖼️ Step 6: Visual Output
-- A clean web UI built using **Gradio** displays:
-  - Product image  
-  - Summarized reviews in three tabs  
-  - Key stats: number of reviews, sentiment breakdown, average rating  
-  - A powerful **final decision-making summary** (verdict)
- 
+### 🖼️ Step 7: Visual Output
+![Screenshot 2025-07-02 102639](https://github.com/user-attachments/assets/8a2ab4fc-53fa-4f3e-81f5-3ec97aa72ed2)
+
+Built using **Gradio** with custom CSS:
+- 📷 Product Image
+- 📊 Review Stats:
+  - Total count  
+  - Avg rating  
+  - # of Positive / Negative / Neutral reviews
+- 📈 Cosine Similarity (for each sentiment)
+- 📚 Summary Tabs for each sentiment
+- 🧠 Final Verdict (combined summarization)
+
   
-
 
 ---
 
 ## 📦 Why 200 Reviews?
 
-- **Trade-off between accuracy and speed**:  
-  200 reviews offer a **representative sample** of recent customer feedback.
-- Scraping more could lead to higher latency and more repetitive content.
-- Summarizing beyond 200 increases **computation cost and processing time**.
-- For most products, 200 recent reviews are more than enough to understand:
-  - Common praise  
-  - Repeated complaints  
-  - Emerging trends
+- Balances **speed and quality**:  
+  Too many reviews = slower response, more repetition.  
+  200 offers a **representative snapshot**.
+- For most products, recent 200 reviews are enough to:
+  - Catch common issues  
+  - Understand general sentiment
 
 ---
 
-## ⏱️ Why Most Recent Reviews?
+## 🧪 Cosine Similarity Use
 
-- Products evolve: newer batches may differ in quality.
-- Old reviews might not reflect the **current state of the product**.
-- Recent reviews = more relevant, more aligned with your **current purchase decision**.
+Cosine Similarity is computed between:
+- All positive reviews ↔️ their summary  
+- All negative reviews ↔️ their summary  
+- All neutral reviews ↔️ their summary  
 
----
-
-## 💻 Deployment Details
-
-- Built using **Python**, deployed via **Gradio**, which allows:
-  - Fast web-based deployment.
-  - Inline hosting or sharing with others.
-- The interface is styled with **custom CSS** to enhance UX.
-- No need to install heavy dependencies locally – everything is packaged in a single script.
+> **Higher the score (closer to 1), better the summary coverage.**
 
 ---
 
-## 🎯 Benefits
+## 🖥️ Technologies Used
 
-✅ **Time Saver**  
-Skim **200 reviews in 4 minutes**, instead of 50 reviews in 10 minutes manually.
-
-✅ **Smarter Buying Decisions**  
-Clear insights based on **real customer voices**, powered by **state-of-the-art NLP models**.
-
-✅ **No More Guesswork**  
-You’re no longer relying on just the top few reviews or biased opinions.
-
-✅ **One-Click Simplicity**  
-Paste the link, click “Analyze Reviews” — that's it.
+| Purpose                | Library / Tool                         |
+|------------------------|----------------------------------------|
+| Web Scraping           | `Selenium`, `BeautifulSoup`            |
+| Text Preprocessing     | `emoji`, `pandas`                      |
+| NLP Summarization      | `transformers` (`facebook/bart-large-cnn`) |
+| Similarity Evaluation  | `scikit-learn` (`TfidfVectorizer`, `cosine_similarity`) |
+| UI / Deployment        | `Gradio`                               |
 
 ---
 
-## 🛠️ Technologies Used
+## ⚙️ How to Run
 
-| Component        | Tech Stack                        |
-|------------------|-----------------------------------|
-| Web UI           | Gradio                            |
-| Web Scraping     | Selenium, BeautifulSoup           |
-| NLP Summarization| Hugging Face Transformers (BART)  |
-| Data Handling    | Pandas                            |
-| Emoji Removal    | emoji package                     |
-| Deployment       | Gradio inline UI / Localhost      |
+1. Install dependencies:
 
----
-
-## 📷 Sample Output
-
-> **Visuals include:**
-- Product image
-- Stat cards with review counts
-- Tabbed summaries for positive, negative, and neutral
-- Final summarized verdict
-
-_Add screenshots here if available_
-![Screenshot 2025-07-01 232304](https://github.com/user-attachments/assets/d3e516fd-9b7e-4982-8942-e3092cc32049)
-
-![Screenshot 2025-07-01 234401](https://github.com/user-attachments/assets/6286dd4e-31bf-4c71-94d2-fabbae9a7e5a)
-
----
-
-## 🤖 Future Scope
-
-- Add **rating trend charts** using Matplotlib or Plotly.
-- Support **multiple e-commerce platforms** (Amazon, Meesho, etc.).
-- Use **sentiment classification models** for more robust tagging.
-- Add **voice summary** using TTS for audio summaries.
-
----
-
-## 🙌 Final Words
-
-**ReviewPulse** is your intelligent shopping assistant.  
-Don’t just read — **understand** reviews.  
-Let **AI** do the reading, while **you make the decision**.
-
----
+```bash
+pip install gradio selenium beautifulsoup4 transformers emoji pandas scikit-learn
