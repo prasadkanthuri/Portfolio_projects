@@ -120,6 +120,8 @@ To validate the effectiveness of the **Dream11 Fantasy Team Predictor**, I teste
 
 ### 📊 Case Study 1: MI vs LSG – May 17, 2024 (Wankhede Stadium)
 
+<img width="1414" height="1762" alt="1" src="https://github.com/user-attachments/assets/5c4a6f05-4306-47ed-a388-6b9163ed1474" />
+
 **Key Wins:**
 - ✅ **Captain (N Pooran)** scored **75 off 34 balls** with a strike rate of **220.59** — _best-performing batter of the match!_
 - ✅ **Vice Captain (KL Rahul)** made **55 runs off 42 balls** — strong contribution.
@@ -135,6 +137,8 @@ To validate the effectiveness of the **Dream11 Fantasy Team Predictor**, I teste
 ---
 
 ### 📊 Case Study 2: KKR vs PBKS – April 26, 2024 (Eden Gardens)
+<img width="1414" height="1563" alt="2" src="https://github.com/user-attachments/assets/454db658-48d4-4f63-a7a2-48ab3e731392" />
+
 
 **Key Wins:**
 - ✅ **Captain (SP Narine)** delivered with both bat (36 runs) and ball (2 wickets) — a true all-round performance.
